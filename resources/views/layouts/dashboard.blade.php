@@ -1,0 +1,6 @@
+@include('includes/dashboard/first')
+@include('includes/dashboard/navbar')
+@include('includes/dashboard/sidebar')
+@yield("content")
+@include('includes/dashboard/footer')
+@include('includes/dashboard/end')
