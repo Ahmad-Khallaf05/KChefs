@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ChefController;
+use App\Http\Controllers\dishController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -33,6 +35,26 @@ Route::middleware('admin')->group(function () {
         'update' => 'users.dashboard.update',
         'destroy' => 'users.dashboard.destroy',
         'show' => 'users.dashboard.show',
+    ]);
+
+    Route::resource('/dash/chefs', ChefController::class)->middleware('admin')->names([
+        'index' => 'chefs.dashboard.index',
+        'create' => 'chefs.dashboard.create',
+        'store' => 'chefs.dashboard.store',
+        'edit' => 'chefs.dashboard.edit',
+        'update' => 'chefs.dashboard.update',
+        'destroy' => 'chefs.dashboard.destroy',
+        'show' => 'chefs.dashboard.show',
+    ]);
+
+    Route::resource('/dash/dishes', dishController::class)->middleware('admin')->names([
+        'index' => 'dishes.dashboard.index',
+        'create' => 'dishes.dashboard.create',
+        'store' => 'dishes.dashboard.store',
+        'edit' => 'dishes.dashboard.edit',
+        'update' => 'dishes.dashboard.update',
+        'destroy' => 'dishes.dashboard.destroy',
+        'show' => 'dishes.dashboard.show',
     ]);
     
 });
