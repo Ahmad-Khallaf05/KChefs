@@ -1,0 +1,5 @@
+@include('includes/home/first')
+@include('includes/home/navbar')
+@yield("content")
+@include('includes/home/footer')
+@include('includes/home/end')
