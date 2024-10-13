@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'chef' => [  // Added guard for chefs
+            'driver' => 'session',
+            'provider' => 'chefs',
+        ],
     ],
 
     /*
@@ -64,11 +68,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'chefs' => [  // Added provider for chefs
+            'driver' => 'eloquent',
+            'model' => App\Models\Chef::class,
+        ],
     ],
 
     /*
@@ -93,6 +96,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'chefs' => [  // Added password reset configuration for chefs
+            'provider' => 'chefs',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

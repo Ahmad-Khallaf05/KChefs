@@ -9,31 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/home'; // Default redirect for regular users
+    protected $redirectAdmin = '/dash'; // Admin dashboard path
+    protected $redirectChef = '/dash'; // Chef dashboard path
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -41,19 +22,39 @@ class LoginController extends Controller
     }
 
     /**
-     * Handle a successful login.
+     * Attempt to log the user into the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
      * @return \Illuminate\Http\Response
      */
-    protected function authenticated(Request $request, $user)
+    public function login(Request $request)
     {
-        
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard'); 
+        // Validate the request
+        $this->validate($request, [
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        // Attempt to log in the user from the users table (for admin)
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('web')->attempt($credentials)) {
+            // Check if the logged-in user is an admin
+            $user = Auth::user();
+            if ($user->role === 'admin') { // Assuming you have a 'role' column in the users table
+                return redirect()->intended($this->redirectAdmin);
+            }
+            return redirect()->intended($this->redirectTo); // Regular user redirection
         }
 
-        return redirect()->intended($this->redirectTo); 
+        // Attempt to log in the user from the chefs table (for chef)
+        if (Auth::guard('chef')->attempt($credentials)) {
+            return redirect()->intended($this->redirectChef); // Chef redirection
+        }
+
+        // If the login attempt was unsuccessful, redirect back with an error
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 }

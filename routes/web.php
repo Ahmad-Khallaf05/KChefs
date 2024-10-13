@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\ChefController;
 use App\Http\Controllers\dishController;
+use App\Http\Controllers\HomeChefController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeDishController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,5 +66,16 @@ Route::middleware('admin')->group(function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/chefs', [HomeChefController::class, 'index'])->name('chefs');
+
+Route::get('/dishes', [HomeDishController::class, 'index'])->name('dishes');
+
+
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+    return redirect('/home'); 
+})->name('logout');
+
 

@@ -22,7 +22,12 @@ class CheckAdmin
             return $next($request);
         }
 
-        // If the user is not an admin, redirect them or return a 403 response
-        return redirect('/home')->with('error', 'You do not have admin access.');
+        // Check if the chef is authenticated and has the 'chef' role
+        if (Auth::guard('chef')->check() && Auth::guard('chef')->user()->role === 'chef') {
+            return $next($request);
+        }
+
+        // If the user is not an admin or chef, redirect them or return a 403 response
+        return redirect('/home')->with('error', 'You do not have access to this area.');
     }
 }

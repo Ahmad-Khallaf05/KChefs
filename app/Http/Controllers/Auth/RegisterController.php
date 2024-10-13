@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Chef;  // Assuming you have a Chef model for the chefs table
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -38,11 +39,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'in:user,chef'], // Validate role as either 'user' or 'chef'
         ]);
     }
 
@@ -50,20 +52,34 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\User
+     * @return \App\Models\User|\App\Models\Chef
      */
     protected function create(array $data)
     {
+        // Check the role and insert into the corresponding table
+        if ($data['role'] === 'chef') {
+            return Chef::create([  // Save data to Chef table
+                'username' => $data['username'],
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'phone' => $data['phone'] ?? null,
+                'bio' => $data['bio'] ?? null,
+                'profile_picture' => $data['profile_picture'] ?? null,
+            ]);
+        }
+
+        // If the role is 'user', save to the User table
         return User::create([
             'username' => $data['username'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => $data['role'] ?? 'user', 
-            'phone' => $data['phone'],
-            'bio' => $data['bio'],
-            'profile_picture' => $data['profile_picture'] ?? 'NULL', 
+            'phone' => $data['phone'] ?? null,
+            'bio' => $data['bio'] ?? null,
+            'profile_picture' => $data['profile_picture'] ?? null,
         ]);
     }
 }

@@ -17,11 +17,20 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
+        // Define guards (for user and chef)
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // Check if the authenticated user is a regular user
+                if (Auth::guard($guard)->user() instanceof \App\Models\User) {
+                    return redirect(RouteServiceProvider::HOME);  // Redirect to user home
+                }
+
+                // Check if the authenticated user is a chef
+                if (Auth::guard($guard)->user() instanceof \App\Models\Chef) {
+                    return redirect('/chef/dashboard');  // Redirect to chef's dashboard
+                }
             }
         }
 
