@@ -12,26 +12,32 @@ class Dish extends Model
     protected $table = 'dishes';
     protected $primaryKey = 'dishe_id';
 
-    // Mass assignable attributes
     protected $fillable = [
         'dishe_title',
         'dishe_description',
         'price',
-        'image',
+        'image_id', 
         'chef_id',
         'dish_category_id',
     ];
 
-    // A dish belongs to one chef
     public function chef()
     {
         return $this->belongsTo(Chef::class, 'chef_id', 'chef_id');
     }
 
-    // A dish belongs to one dish category
-    public function Category()
+    public function category() 
     {
         return $this->belongsTo(DishCategory::class, 'dish_category_id', 'dish_category_id');
-    
+    }
+
+    public function images()
+    {
+        return $this->hasMany(DishImage::class, 'dishe_id', 'dishe_id'); 
+    }
+
+    public function primaryImage()
+    {
+        return $this->belongsTo(DishImage::class, 'image_id', 'image_id'); 
     }
 }

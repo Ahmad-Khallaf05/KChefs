@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChefController;
+use App\Http\Controllers\Dish_CategoryController;
 use App\Http\Controllers\dishController;
 use App\Http\Controllers\HomeChefController;
 use App\Http\Controllers\HomeController;
@@ -59,6 +60,16 @@ Route::middleware('admin')->group(function () {
         'update' => 'dishes.dashboard.update',
         'destroy' => 'dishes.dashboard.destroy',
         'show' => 'dishes.dashboard.show',
+    ]);
+
+    Route::resource('/dash/categories', Dish_CategoryController::class)->middleware('admin')->names([
+        'index' => 'categories.dashboard.index',
+        'create' => 'categories.dashboard.create',
+        'store' => 'categories.dashboard.store',
+        'edit' => 'categories.dashboard.edit',
+        'update' => 'categories.dashboard.update',
+        'destroy' => 'categories.dashboard.destroy',
+        'show' => 'categories.dashboard.show',
     ]);
     
 });

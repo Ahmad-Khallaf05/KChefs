@@ -1,35 +1,5 @@
 <div class="sidebar">
-				<div class="scrollbar-inner sidebar-wrapper">
-					<div class="user">
-						<div class="photo">
-                        <img src="{{ asset('./assets/dashboard/img/profile2.jpg') }}" alt="Img Profile">
-						</div>
-						<div class="info">
-							<a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-								<span>
-									Hizrian
-									<span class="user-level">Administrator</span>
-									<span class="caret"></span>
-								</span>
-							</a>
-							<div class="clearfix"></div>
-
-							<div class="collapse in" id="collapseExample" aria-expanded="true" style="">
-								<ul class="nav">
-									<li>
-										<a href="#profile">
-											<span class="link-collapse">My Profile</span>
-										</a>
-									</li>
-									<li>
-										<a href="#edit">
-											<span class="link-collapse">Edit Profile</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+				<div class="scrollbar-inner sidebar-wrapper">				
 					<ul class="nav">
 						<li class="nav-item active">
 							<a href="{{ route('admin.dashboard') }}">
@@ -53,6 +23,12 @@
 							<a href="{{ route('dishes.dashboard.index') }}">
 								<i class="la la-cutlery"></i>
 								<p>Dishes</p>
+							</a>
+						</li>
+						<li class="nav-item active">
+							<a href="{{ route('categories.dashboard.index') }}">
+								<i class="la la-cutlery"></i>
+								<p>Categories</p>
 							</a>
 						</li>
 					</ul>

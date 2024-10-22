@@ -11,14 +11,7 @@ class DishCategory extends Model
 
     protected $table = 'dish_categories';
 
-    protected $fillable = [
-        'category_name',
-        'category_description',
-    ];
+    protected $primaryKey = 'dish_category_id';
 
-    // One category can have many dishes
-    public function dishes()
-    {
-        return $this->hasMany(Dish::class, 'dish_category_id', 'dish_category_id');
-    }
+    protected $fillable = ['dish_category_name', 'description', 'image_path'];
 }

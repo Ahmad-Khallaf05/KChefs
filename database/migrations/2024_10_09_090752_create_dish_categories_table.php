@@ -9,12 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('dish_categories', function (Blueprint $table) {
             $table->id('dish_category_id');
-            $table->string('category_name');
-            $table->text('category_description')->nullable();
+            $table->string('dish_category_name');
+            $table->text('description')->nullable(); 
+            $table->string('image_path')->nullable(); 
             $table->timestamps();
         });
     }
