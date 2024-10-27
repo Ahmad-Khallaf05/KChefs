@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,11 +9,11 @@ class Dish extends Model
     use HasFactory;
 
     protected $table = 'dishes';
-    protected $primaryKey = 'dishe_id';
+    protected $primaryKey = 'dish_id'; 
 
     protected $fillable = [
-        'dishe_title',
-        'dishe_description',
+        'dish_title',
+        'dish_description',
         'price',
         'image_id', 
         'chef_id',
@@ -33,11 +32,11 @@ class Dish extends Model
 
     public function images()
     {
-        return $this->hasMany(DishImage::class, 'dishe_id', 'dishe_id'); 
+        return $this->hasMany(DishImage::class, 'dish_id', 'dish_id');
     }
 
     public function primaryImage()
     {
-        return $this->belongsTo(DishImage::class, 'image_id', 'image_id'); 
+        return $this->belongsTo(DishImage::class, 'image_id', 'image_id');
     }
 }

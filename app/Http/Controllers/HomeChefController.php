@@ -8,18 +8,18 @@ use Illuminate\Http\Request;
 class HomeChefController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of chefs with filtering and searching capabilities.
      */
     public function index(Request $request)
     {
         $query = Chef::query();
     
-        // Filter by specialties if the input is provided
+        // Filter by specialties if provided
         if ($request->filled('chef_specialties')) {
             $query->where('chef_specialties', 'like', '%' . $request->chef_specialties . '%');
         }
     
-        // Search by username or email if the input is provided
+        // Search by username or email if provided
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('username', 'like', '%' . $request->search . '%')
@@ -33,12 +33,24 @@ class HomeChefController extends Controller
         // Get distinct specialties for filtering
         $specialties = Chef::distinct()->pluck('chef_specialties');
     
-        // Return the view with the chefs and specialties
+        // Return the view with chefs and specialties
         return view('home.chefs', compact('chefs', 'specialties'));
     }
-    
+
     /**
-     * Show the form for creating a new resource.
+     * Display the specified chef's profile along with all of their dishes.
+     */
+    public function show($chef_id)
+    {
+        // Retrieve the chef with their dishes using eager loading
+        $chef = Chef::with('dishes')->findOrFail($chef_id);
+
+        // Return the profile view with the chef's data and dishes
+        return view('home.chef_profile', compact('chef'));
+    }
+
+    /**
+     * Show the form for creating a new chef.
      */
     public function create()
     {
@@ -46,7 +58,7 @@ class HomeChefController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created chef in storage.
      */
     public function store(Request $request)
     {
@@ -54,33 +66,25 @@ class HomeChefController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified chef.
      */
-    public function show(string $id)
-    {
-        // Logic for showing a specific chef (if needed)
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
         // Logic for editing a specific chef (if needed)
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified chef in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         // Logic for updating a specific chef (if needed)
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified chef from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         // Logic for deleting a specific chef (if needed)
     }

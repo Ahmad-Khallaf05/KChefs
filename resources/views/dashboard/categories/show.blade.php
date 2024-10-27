@@ -4,70 +4,44 @@
 <div class="content">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="title-1">Show Chef</h2>
-            <a href="{{ route('users.dashboard.index') }}">
+            <h2 class="title-1">Category Details</h2>
+            <a href="{{ route('categories.dashboard.index') }}">
                 <button type="button" class="btn btn-primary">
-                    <i class="zmdi zmdi-plus"></i> Chefs
+                    <i class="zmdi zmdi-arrow-left"></i> Back to Categories
                 </button>
             </a>
         </div>
 
         <div class="card">
-            <div class="card-header">
-                <h3>User Profile</h3>
-            </div>
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Username:</strong></div>
-                    <div class="col-md-8">{{ $chef->username }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>First Name:</strong></div>
-                    <div class="col-md-8">{{ $chef->first_name }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Last Name:</strong></div>
-                    <div class="col-md-8">{{ $chef->last_name }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Email:</strong></div>
-                    <div class="col-md-8">{{ $chef->email }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Chef Specialties</strong></div>
-                    <div class="col-md-8">{{ ucfirst($chef->chef_specialties) }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Phone:</strong></div>
-                    <div class="col-md-8">{{ $chef->phone ?? 'N/A' }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Bio:</strong></div>
-                    <div class="col-md-8">{{ $chef->bio ?? 'N/A' }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Profile Picture:</strong></div>
-                    <div class="col-md-8">
-                        @if($chef->profile_picture)
-                            <img src="{{ asset('storage/' . $chef->profile_picture) }}" alt="Profile Picture"
-                                class="img-thumbnail" width="150">
+                <div class="row">
+                    <!-- Category Image Section -->
+                    <div class="col-md-6">
+                        @if($category->image_path)
+                            <img src="{{ asset('storage/' . $category->image_path) }}" alt="Category Image" class="img-fluid rounded">
                         @else
-                            <p>No Profile Picture</p>
+                            <p class="text-muted">No Image Available</p>
                         @endif
                     </div>
-                </div>
 
-                <!-- Edit Button -->
-                <div class="row">
-                    <div class="col-md-12 text-right">
-                        <a href="{{ route('chefs.dashboard.edit', $chef) }}" class="btn btn-primary">Edit User</a>
+                    <!-- Category Details Section -->
+                    <div class="col-md-6">
+                        <h3>{{ $category->dish_category_name }}</h3>
+
+                        <!-- Description -->
+                        <p class="mt-4"><strong>Description:</strong></p>
+                        <p>{{ $category->description ?? 'No description available.' }}</p>
+
+                        <!-- Created At -->
+                        <p><strong>Created on:</strong> {{ $category->created_at->format('F d, Y') }}</p>
+
+                        <!-- Updated At -->
+                        <p><strong>Last Updated:</strong> {{ $category->updated_at->format('F d, Y') }}</p>
+
+                        <!-- Edit Button -->
+                        <a href="{{ route('categories.dashboard.edit', $category) }}" class="btn btn-primary mt-3">
+                            <i class="zmdi zmdi-edit"></i> Edit Category
+                        </a>
                     </div>
                 </div>
             </div>

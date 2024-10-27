@@ -52,7 +52,7 @@ Route::middleware('admin')->group(function () {
         'show' => 'chefs.dashboard.show',
     ]);
 
-    Route::resource('/dash/dishes', dishController::class)->middleware('admin')->names([
+    Route::resource('/dash/dishes', DishController::class)->middleware('admin')->names([
         'index' => 'dishes.dashboard.index',
         'create' => 'dishes.dashboard.create',
         'store' => 'dishes.dashboard.store',
@@ -60,7 +60,7 @@ Route::middleware('admin')->group(function () {
         'update' => 'dishes.dashboard.update',
         'destroy' => 'dishes.dashboard.destroy',
         'show' => 'dishes.dashboard.show',
-    ]);
+    ]);    
 
     Route::resource('/dash/categories', Dish_CategoryController::class)->middleware('admin')->names([
         'index' => 'categories.dashboard.index',
@@ -80,8 +80,10 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/chefs', [HomeChefController::class, 'index'])->name('chefs');
+Route::get('/chefs/{chef}', [HomeChefController::class, 'show'])->name('chefs.show');
 
 Route::get('/dishes', [HomeDishController::class, 'index'])->name('dishes');
+Route::get('/dishes/{dish}', [HomeDishController::class, 'show'])->name('dishes.show');
 
 
 Route::post('/logout', function (Request $request) {

@@ -37,4 +37,6 @@ class Chef extends Authenticatable
     {
         return $this->hasMany(Dish::class, 'chef_id', 'chef_id');
     }
+   
+
 }

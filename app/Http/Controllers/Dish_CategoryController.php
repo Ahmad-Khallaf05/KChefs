@@ -18,7 +18,7 @@ class Dish_CategoryController extends Controller
     // Show the form for creating a new dish category
     public function create()
     {
-        return view('dish_categories.create');
+        return view('dashboard.categories.create');
     }
 
     // Store a newly created dish category in the database
@@ -27,12 +27,12 @@ class Dish_CategoryController extends Controller
         $request->validate([
             'dish_category_name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Handle image upload
+       
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
+            $imagePath = $request->file('image')->store('categories', 'public');
         } else {
             $imagePath = null;
         }
@@ -43,7 +43,7 @@ class Dish_CategoryController extends Controller
             'image_path' => $imagePath,
         ]);
 
-        return redirect()->route('dish_categories.index')
+        return redirect()->route('categories.dashboard.index')
                          ->with('success', 'Dish category created successfully.');
     }
 
@@ -51,14 +51,14 @@ class Dish_CategoryController extends Controller
     public function show($id)
     {
         $category = DishCategory::findOrFail($id);
-        return view('dish_categories.show', compact('category'));
+        return view('dashboard.categories.show', compact('category'));
     }
 
     // Show the form for editing a specific dish category
     public function edit($id)
     {
         $category = DishCategory::findOrFail($id);
-        return view('dish_categories.edit', compact('category'));
+        return view('dashboard.categories.edit', compact('category'));
     }
 
     // Update a specific dish category in the database
@@ -72,16 +72,15 @@ class Dish_CategoryController extends Controller
 
         $category = DishCategory::findOrFail($id);
 
-        // Handle image upload if a new one is provided
         if ($request->hasFile('image')) {
-            // Delete the old image if it exists
+            
             if ($category->image_path) {
                 Storage::delete('public/' . $category->image_path);
             }
 
-            $imagePath = $request->file('image')->store('images', 'public');
+            $imagePath = $request->file('image')->store('categories', 'public');
         } else {
-            $imagePath = $category->image_path; // Keep the old image if no new image is provided
+            $imagePath = $category->image_path; 
         }
 
         $category->update([
@@ -90,7 +89,7 @@ class Dish_CategoryController extends Controller
             'image_path' => $imagePath,
         ]);
 
-        return redirect()->route('dish_categories.index')
+        return redirect()->route('categories.dashboard.index')
                          ->with('success', 'Dish category updated successfully.');
     }
 
@@ -106,7 +105,7 @@ class Dish_CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('dish_categories.index')
+        return redirect()->route('categories.dashboard.index')
                          ->with('success', 'Dish category deleted successfully.');
     }
 }

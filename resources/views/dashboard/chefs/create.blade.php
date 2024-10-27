@@ -13,7 +13,7 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('chefs.dashboard.store') }}" method="POST">
+                <form action="{{ route('chefs.dashboard.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <!-- Username -->
@@ -65,12 +65,22 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    
+
                     <!-- Password -->
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" class="form-control" required>
                         @error('password')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Profile Picture -->
+                    <div class="form-group">
+                        <label for="profile_picture">Profile Picture</label>
+                        <input type="file" name="profile_picture" id="profile_picture" class="form-control"
+                            accept="image/*">
+                        @error('profile_picture')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>

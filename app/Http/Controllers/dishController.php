@@ -28,7 +28,7 @@ class dishController extends Controller
         }
 
         // Get categories for filtering
-        $categories = DishCategory::pluck('category_name', 'dish_category_id');
+        $categories = DishCategory::pluck('dish_category_name', 'dish_category_id');
 
         // Paginate the dishes with eager loading
         $dishes = $query->with('category', 'chef')->paginate(10); // Eager load chef for display if needed
@@ -40,7 +40,7 @@ class dishController extends Controller
     public function create()
     {
         // Retrieve all categories for the form using pluck
-        $categories = DishCategory::pluck('category_name', 'dish_category_id');
+        $categories = DishCategory::pluck('dish_category_name', 'dish_category_id');
 
         // Retrieve all chefs for the dropdown
         $chefs = Chef::all();
@@ -51,19 +51,19 @@ class dishController extends Controller
     // Store a newly created resource in storage.
     public function store(Request $request)
     {
+        // dd($request->all());
         // Validate incoming request data
         $request->validate([
-            'dishe_title' => 'required|unique:dishes,dishe_title',
-            'dishe_description' => 'required',
-            'dish_category_id' => 'required|exists:dish_categories,dish_category_id',
+            'dish_title' => 'required|unique:dishes,dish_title',
+            'dish_description' => 'required',
+            'dish_category_id' => 'required|exists:dish_categories,dish_category_id', 
             'chef_id' => 'required|exists:chefs,chef_id',
             'price' => 'required|numeric|min:0',
         ]);
 
-        // Create new dish with dish_category_id and chef_id
         Dish::create([
-            'dishe_title' => $request->dishe_title,
-            'dishe_description' => $request->dishe_description,
+            'dish_title' => $request->dish_title,
+            'dish_description' => $request->dish_description,
             'dish_category_id' => $request->dish_category_id,
             'chef_id' => $request->chef_id,
             'price' => $request->price,
@@ -75,12 +75,14 @@ class dishController extends Controller
 
     // Display the specified resource.
     public function show(Dish $dish)
-{
-    // Load the category and chef relationships with the dish
-    $dish->load('category', 'chef');
+    {
+        // Load the dish category and chef relationships
+        $dish->load('category', 'chef');
+    
+        return view('dashboard.dishes.show', compact('dish'));
+    }
+    
 
-    return view('dashboard.dishes.show', compact('dish'));
-}
 
 
     // Show the form for editing the specified resource.

@@ -15,23 +15,22 @@
             <div class="card-body">
                 <form action="{{ route('dishes.dashboard.store') }}" method="POST">
                     @csrf
-
                     <!-- Dish Title -->
                     <div class="form-group">
-                        <label for="dishe_title">Dish Title</label>
-                        <input type="text" name="dishe_title" id="dishe_title" class="form-control"
-                            value="{{ old('dishe_title') }}" required>
-                        @error('dishe_title')
+                        <label for="dish_title">Dish Title</label>
+                        <input type="text" name="dish_title" id="dish_title" class="form-control"
+                            value="{{ old('dish_title') }}" required>
+                        @error('dish_title')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <!-- Dish Description -->
                     <div class="form-group">
-                        <label for="dishe_description">Dish Description</label>
-                        <textarea name="dishe_description" id="dishe_description" class="form-control"
-                            required>{{ old('dishe_description') }}</textarea>
-                        @error('dishe_description')
+                        <label for="dish_description">Dish Description</label>
+                        <textarea name="dish_description" id="dish_description" class="form-control"
+                            required>{{ old('dish_description') }}</textarea>
+                        @error('dish_description')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -42,7 +41,8 @@
                         <select name="dish_category_id" id="dish_category_id" class="form-control" required>
                             <option value="">Select a category</option>
                             @foreach($categories as $id => $name)
-                                <option value="{{ $id }}" {{ old('dish_category_id') == $id ? 'selected' : '' }}>{{ $name }}
+                                <option value="{{ $id }}" {{ old('dish_category_id') == $id ? 'selected' : '' }}>
+                                    {{ $name }}
                                 </option>
                             @endforeach
                         </select>
@@ -57,7 +57,7 @@
                         <select name="chef_id" id="chef_id" class="form-control" required>
                             <option value="">Select a chef</option>
                             @foreach($chefs as $chef)
-                                <option value="{{ $chef->chef_id }}" {{ old('chef_id') == $chef->id ? 'selected' : '' }}>
+                                <option value="{{ $chef->chef_id }}" {{ old('chef_id') == $chef->chef_id ? 'selected' : '' }}>
                                     {{ $chef->username }}
                                 </option>
                             @endforeach

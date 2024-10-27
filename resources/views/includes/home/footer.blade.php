@@ -4,13 +4,13 @@
     <div class="row gy-4">
       <div class="col-lg-4 col-md-6 footer-about">
         <a href="{{ url('/') }}" class="logo d-flex align-items-center">
-          <span class="sitename">Restaurantly</span>
+          <span class="sitename">KChefs</span>
         </a>
         <div class="footer-contact pt-3">
           <p>A108 Adam Street</p>
           <p>New York, NY 535022</p>
-          <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-          <p><strong>Email:</strong> <span>info@example.com</span></p>
+          <p class="mt-3"><strong>Phone:</strong> <span>+00962790325001</span></p>
+          <p><strong>Email:</strong> <span>ahmadmajedkhallaf470@gmail.com</span></p>
         </div>
         <div class="social-links d-flex mt-4">
           <a href="#"><i class="bi bi-twitter"></i></a>
@@ -51,10 +51,7 @@
   </div>
 
   <div class="container copyright text-center mt-4">
-    <p>© <span>Copyright</span> <strong class="px-1 sitename">Restaurantly</strong> <span>All Rights Reserved</span></p>
-    <div class="credits">
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div>
+    <p>© <span>Copyright</span> <strong class="px-1 sitename">KChefs</strong> <span>All Rights Reserved</span></p>
   </div>
 
 </footer>

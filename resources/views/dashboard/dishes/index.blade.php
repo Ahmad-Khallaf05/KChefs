@@ -67,10 +67,9 @@
                         <tbody>
                             @foreach($dishes as $dish)
                                 <tr>
-                                    <td>{{ $dish->dishe_id }}</td>
-                                    <td>{{ $dish->dishe_title }}</td>
-                                    <td>{{ $dish->category->category_name ?? 'N/A' }}</td>
-                                    <!-- Accessing the category name -->
+                                    <td>{{ $dish->dish_id }}</td>
+                                    <td>{{ $dish->dish_title }}</td>
+                                    <td>{{ $dish->category->dish_category_name ?? 'N/A' }}</td>
                                     <td>{{ $dish->price }}</td>
                                     <td>
                                         <a href="{{ route('dishes.dashboard.show', $dish) }}"

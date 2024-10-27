@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+
 @section('content')
 <div class="content">
     <div class="container">
@@ -25,6 +26,9 @@
                         <label for="username">Username</label>
                         <input type="text" name="username" id="username" class="form-control"
                             value="{{ old('username', $chef->username) }}" required>
+                        @error('username')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- First Name -->
@@ -32,6 +36,9 @@
                         <label for="first_name">First Name</label>
                         <input type="text" name="first_name" id="first_name" class="form-control"
                             value="{{ old('first_name', $chef->first_name) }}" required>
+                        @error('first_name')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Last Name -->
@@ -39,6 +46,9 @@
                         <label for="last_name">Last Name</label>
                         <input type="text" name="last_name" id="last_name" class="form-control"
                             value="{{ old('last_name', $chef->last_name) }}" required>
+                        @error('last_name')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Email -->
@@ -46,6 +56,9 @@
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" class="form-control"
                             value="{{ old('email', $chef->email) }}" required>
+                        @error('email')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Chef Specialties -->
@@ -53,6 +66,9 @@
                         <label for="chef_specialties">Chef Specialties</label>
                         <input type="text" name="chef_specialties" id="chef_specialties" class="form-control"
                             value="{{ old('chef_specialties', $chef->chef_specialties) }}" required>
+                        @error('chef_specialties')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Phone (optional) -->
@@ -60,12 +76,18 @@
                         <label for="phone">Phone</label>
                         <input type="text" name="phone" id="phone" class="form-control"
                             value="{{ old('phone', $chef->phone) }}">
+                        @error('phone')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Bio (optional) -->
                     <div class="form-group">
                         <label for="bio">Bio</label>
                         <textarea name="bio" id="bio" class="form-control" rows="3">{{ old('bio', $chef->bio) }}</textarea>
+                        @error('bio')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Profile Picture (optional) -->
@@ -77,12 +99,18 @@
                                 <img src="{{ asset('storage/' . $chef->profile_picture) }}" alt="Profile Picture" class="img-thumbnail" width="150">
                             </div>
                         @endif
+                        @error('profile_picture')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Password (optional) -->
                     <div class="form-group">
                         <label for="password">Password (Leave empty to keep current password)</label>
                         <input type="password" name="password" id="password" class="form-control">
+                        @error('password')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Submit Button -->

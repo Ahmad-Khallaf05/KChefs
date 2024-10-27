@@ -4,79 +4,53 @@
 <div class="content">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="title-1">Add New Chef</h2>
-            <a href="{{ route('chefs.dashboard.index') }}">
+            <h2 class="title-1">Add New Category</h2>
+            <a href="{{ route('categories.dashboard.index') }}">
                 <button type="button" class="btn btn-primary">
-                    <i class="zmdi zmdi-plus"></i> Back
+                    <i class="zmdi zmdi-arrow-back"></i> Back
                 </button>
             </a>
         </div>
+
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('chefs.dashboard.store') }}" method="POST">
+                <form action="{{ route('categories.dashboard.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @methode('POST')
 
-                    <!-- Username -->
+                    <!-- Category Name -->
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" id="username" class="form-control"
-                            value="{{ old('username') }}" required>
-                        @error('username')
+                        <label for="dish_category_name">Category Name</label>
+                        <input type="text" name="dish_category_name" id="dish_category_name" class="form-control"
+                            value="{{ old('dish_category_name') }}" required>
+                        @error('dish_category_name')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <!-- First Name -->
+                    <!-- Description -->
                     <div class="form-group">
-                        <label for="first_name">First Name</label>
-                        <input type="text" name="first_name" id="first_name" class="form-control"
-                            value="{{ old('first_name') }}" required>
-                        @error('first_name')
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description" class="form-control" rows="3"
+                            required>{{ old('description') }}</textarea>
+                        @error('description')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <!-- Last Name -->
-                    <div class="form-group">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" name="last_name" id="last_name" class="form-control"
-                            value="{{ old('last_name') }}" required>
-                        @error('last_name')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}"
-                            required>
-                        @error('email')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <!-- Specialty -->
-                    <div class="form-group">
-                        <label for="chef_specialties">Chef Specialties</label>
-                        <input type="text" name="chef_specialties" id="chef_specialties" class="form-control"
-                            value="{{ old('chef_specialties') }}" required>
-                        @error('chef_specialties')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
                     
-                    <!-- Password -->
+                    <!-- Image Upload -->
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" required>
-                        @error('password')
+                        <label for="image">Category Image</label>
+                        <input type="file" name="image" id="image" class="form-control-file">
+                        @error('image')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
+
 
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary">Create Chef</button>
+                    <button type="submit" class="btn btn-primary">Create Category</button>
                 </form>
             </div>
         </div>
