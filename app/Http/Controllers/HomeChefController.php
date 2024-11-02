@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chef;
+use App\Models\ChefSpecialty;
 use Illuminate\Http\Request;
 
 class HomeChefController extends Controller
@@ -16,7 +17,9 @@ class HomeChefController extends Controller
     
         // Filter by specialties if provided
         if ($request->filled('chef_specialties')) {
-            $query->where('chef_specialties', 'like', '%' . $request->chef_specialties . '%');
+            $query->whereHas('specialties', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->chef_specialties . '%');
+            });
         }
     
         // Search by username or email if provided
@@ -31,11 +34,12 @@ class HomeChefController extends Controller
         $chefs = $query->paginate(10);
     
         // Get distinct specialties for filtering
-        $specialties = Chef::distinct()->pluck('chef_specialties');
+        $specialties = ChefSpecialty::distinct()->pluck('name'); // Adjust 'name' based on your specialties table column
     
         // Return the view with chefs and specialties
         return view('home.chefs', compact('chefs', 'specialties'));
     }
+    
 
     /**
      * Display the specified chef's profile along with all of their dishes.
@@ -49,43 +53,5 @@ class HomeChefController extends Controller
         return view('home.chef_profile', compact('chef'));
     }
 
-    /**
-     * Show the form for creating a new chef.
-     */
-    public function create()
-    {
-        // Logic for creating a new chef (if needed)
-    }
-
-    /**
-     * Store a newly created chef in storage.
-     */
-    public function store(Request $request)
-    {
-        // Logic for storing a new chef (if needed)
-    }
-
-    /**
-     * Show the form for editing the specified chef.
-     */
-    public function edit($id)
-    {
-        // Logic for editing a specific chef (if needed)
-    }
-
-    /**
-     * Update the specified chef in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        // Logic for updating a specific chef (if needed)
-    }
-
-    /**
-     * Remove the specified chef from storage.
-     */
-    public function destroy($id)
-    {
-        // Logic for deleting a specific chef (if needed)
-    }
+    
 }

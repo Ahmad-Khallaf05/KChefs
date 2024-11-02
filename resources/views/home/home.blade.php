@@ -15,7 +15,7 @@
             <p data-aos="fade-up" data-aos-delay="200">Delivering great food !</p>
             <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
               <a href="{{ route('chefs') }}" class="cta-btn">Our Chefs</a>
-              <a href="{{ route('dishes') }}" class="cta-btn">Our dishes</a>
+              <a href="{{ route('dishes.index') }}" class="cta-btn">Our dishes</a>
             </div>
           </div>
           <div class="col-lg-4 d-flex align-items-center justify-content-center mt-5 mt-lg-0">

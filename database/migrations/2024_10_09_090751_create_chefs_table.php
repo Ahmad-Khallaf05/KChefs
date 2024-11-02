@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('role')->nullable()->default('chef');
             $table->string('phone')->nullable();
             $table->text('bio')->nullable();
-            $table->string('chef_specialties')->nullable();
             $table->string('profile_picture')->nullable();
             $table->timestamps();
         });

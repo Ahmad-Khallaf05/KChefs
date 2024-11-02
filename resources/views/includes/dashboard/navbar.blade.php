@@ -21,7 +21,7 @@
                                 <div class="u-text">
                                     <h4>Hizrian</h4>
                                     <p class="text-muted">hello@themekita.com</p>
-                                    <a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                                    <a href="{{ route('profile') }}" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
                                 </div>
                             </div>
                         </li>

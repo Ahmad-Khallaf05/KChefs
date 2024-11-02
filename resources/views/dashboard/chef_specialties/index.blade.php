@@ -5,10 +5,10 @@
     <div class="container">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="title-1">Chefs</h2>
-            <a href="{{ route('chefs.dashboard.create') }}">
+            <h2 class="title-1">Chef Specialties</h2>
+            <a href="{{ route('chef_specialties.dashboard.create') }}">
                 <button type="button" class="btn btn-primary btn-sm">
-                    <i class="zmdi zmdi-plus"></i> Add New Chef
+                    <i class="zmdi zmdi-plus"></i> Add New Specialty
                 </button>
             </a>
         </div>
@@ -16,24 +16,11 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    {{-- Filter by Specialty --}}
-                    <form method="GET" action="{{ route('chefs.dashboard.index') }}" class="d-flex align-items-center">
-                        <div class="form-group mb-0">
-                            <select name="specialty" class="form-control form-control-sm" style="border-radius: 10px; padding: 5px 10px;">
-                                <option value="">All Specialties</option>
-                                @foreach($specialties as $specialty)
-                                    <option value="{{ $specialty->id }}" {{ request('specialty') == $specialty->id ? 'selected' : '' }}>
-                                        {{ ucfirst($specialty->name) }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-secondary btn-sm ml-2" style="border-radius: 10px;">Filter</button>
-                    </form>
-                    
-                    {{-- Search by Name or Specialty --}}
-                    <form method="GET" action="{{ route('chefs.dashboard.index') }}" class="d-flex align-items-center">
-                        <input type="text" name="search" class="form-control form-control-sm" placeholder="Search by name or specialty" value="{{ request('search') }}" style="border-radius: 10px; padding: 5px 10px;">
+                  
+
+                    {{-- Search by Name --}}
+                    <form method="GET" action="{{ route('chef_specialties.dashboard.index') }}" class="d-flex align-items-center">
+                        <input type="text" name="search" class="form-control form-control-sm" placeholder="Search by name" value="{{ request('search') }}" style="border-radius: 10px; padding: 5px 10px;">
                         <button type="submit" class="btn btn-primary btn-sm ml-2" style="border-radius: 10px;">Search</button>
                     </form>
                 </div>
@@ -53,27 +40,18 @@
                         <thead class="table-active">
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">UserName</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Specialty</th>
+                                <th scope="col">Specialty Name</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($chefs as $chef)
+                            @foreach($specialties as $specialty)
                             <tr>
-                                <td>{{ $chef->id }}</td>
-                                <td>{{ $chef->username }}</td>
-                                <td>{{ $chef->first_name }}</td>
-                                <td>{{ $chef->last_name }}</td>
-                                <td>{{ $chef->email }}</td>
-                                <td>{{ $chef->specialties->pluck('name')->join(', ') ?: 'N/A' }}</td>
+                                <td>{{ $specialty->id }}</td>
+                                <td>{{ $specialty->name }}</td>
                                 <td>
-                                    <a href="{{ route('chefs.dashboard.show', $chef) }}" class="btn btn-info btn-sm">View</a>
-                                    <a href="{{ route('chefs.dashboard.edit', $chef) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    <button class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('chefs.dashboard.destroy', $chef) }}')">Delete</button>
+                                    <a href="{{ route('chef_specialties.dashboard.edit', $specialty) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <button class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('chef_specialties.dashboard.destroy', $specialty) }}')">Delete</button>
                                 </td>
                             </tr>
                             @endforeach

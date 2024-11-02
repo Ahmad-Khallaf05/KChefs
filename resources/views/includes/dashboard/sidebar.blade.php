@@ -20,6 +20,12 @@
 							</a>
 						</li>
 						<li class="nav-item active">
+							<a href="{{ route('chef_specialties.dashboard.index') }}">
+								<i class="la la-male"></i>
+								<p>chef_specialties</p>
+							</a>
+						</li>
+						<li class="nav-item active">
 							<a href="{{ route('dishes.dashboard.index') }}">
 								<i class="la la-cutlery"></i>
 								<p>Dishes</p>
@@ -31,6 +37,7 @@
 								<p>Categories</p>
 							</a>
 						</li>
+						
 					</ul>
 				</div>
 			</div>

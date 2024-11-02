@@ -61,11 +61,17 @@
                         @enderror
                     </div>
 
-                    <!-- Chef Specialties -->
+                    <!-- Chef Specialties Dropdown -->
                     <div class="form-group">
                         <label for="chef_specialties">Chef Specialties</label>
-                        <input type="text" name="chef_specialties" id="chef_specialties" class="form-control"
-                            value="{{ old('chef_specialties', $chef->chef_specialties) }}" required>
+                        <select name="chef_specialties[]" id="chef_specialties" class="form-control" multiple required>
+                            @foreach($specialties as $specialty)
+                                <option value="{{ $specialty->id }}" 
+                                    {{ in_array($specialty->id, old('chef_specialties', $chef->specialties->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                    {{ $specialty->name }}
+                                </option>
+                            @endforeach
+                        </select>
                         @error('chef_specialties')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -111,6 +117,12 @@
                         @error('password')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
+                    </div>
+
+                    <!-- Password Confirmation (optional) -->
+                    <div class="form-group">
+                        <label for="password_confirmation">Confirm Password</label>
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
                     </div>
 
                     <!-- Submit Button -->

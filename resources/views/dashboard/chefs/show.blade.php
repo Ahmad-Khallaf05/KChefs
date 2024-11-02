@@ -17,7 +17,7 @@
                 <div class="row mb-4">
                     <div class="col-md-4 text-center">
                         @if($chef->profile_picture)
-                            <img src="{{ asset('storage/' . $chef->profile_picture) }}" alt="Profile Picture"
+                            <img src="{{ asset('storage/' . $chef->profile_picture) }}" alt="Profile Picture of {{ $chef->username }}"
                                 class="img-thumbnail" width="150">
                         @else
                             <img src="{{ asset('default-profile.png') }}" alt="Default Profile Picture"
@@ -36,7 +36,13 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4"><strong>Chef Specialties:</strong></div>
-                            <div class="col-md-8">{{ ucfirst($chef->chef_specialties) }}</div>
+                            <div class="col-md-8">
+                                @if($chef->specialties->isNotEmpty())
+                                    {{ implode(', ', $chef->specialties->pluck('name')->toArray()) }}
+                                @else
+                                    N/A
+                                @endif
+                            </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4"><strong>Phone:</strong></div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chef;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -107,4 +108,22 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.dashboard.index')->with('success', 'User deleted successfully.');
     }
+
+    public function viewProfile()
+{
+    $user = auth()->user();
+
+    if ($user->role === 'admin') {
+        // Redirect to admin profile view
+        return view('profiles.admin', compact('user'));
+    } elseif ($user->role === 'user') {
+        // Redirect to user profile view
+        return view('profiles.user', compact('user'));
+    } else {
+        // If logged-in as a chef, redirect to chef profile
+        $chef = Chef::find($user->id); // Adjust this if there's a relationship or different identifier
+        return view('profiles.chef', compact('chef'));
+    }
+}
+
 }

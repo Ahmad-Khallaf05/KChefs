@@ -27,8 +27,8 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="{{ route('home') }}" class="active">Home</a></li>
-                    <li><a href="{{ route('chefs') }}" class="active">Chefs</a></li>
-                    <li><a href="{{ route('dishes') }}" class="active">Dishes</a></li>
+                    <li><a href="{{ route('chefs') }}">Chefs</a></li>
+                    <li><a href="{{ route('dishes.index') }}">Dishes</a></li>
                     <li><a href="{{ route('home') }}#about">About</a></li>
                     <li><a href="{{ route('home') }}#menu">Menu</a></li>
                     <li><a href="{{ route('home') }}#specials">Specials</a></li>
@@ -37,7 +37,7 @@
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
-            <!-- Add guest/login/register/logout buttons here -->
+            <!-- Authenticated / Guest Links -->
             <div class="auth-buttons d-flex align-items-center">
                 @guest
                     @if (Route::has('login'))
@@ -53,6 +53,11 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <!-- Profile link for authenticated users -->
+                            <a class="dropdown-item" href="{{ route('profile') }}">
+                                {{ __('Profile') }}
+                            </a>
+
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
