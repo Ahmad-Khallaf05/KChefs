@@ -19,27 +19,22 @@
                     {{-- Filter by Category --}}
                     <form method="GET" action="{{ route('dishes.dashboard.index') }}" class="d-flex align-items-center">
                         <div class="form-group mb-0">
-                            <select name="category" class="form-control form-control-sm"
-                                style="border-radius: 10px; padding: 5px 10px;">
+                            <select name="category" class="form-control form-control-sm" style="border-radius: 10px; padding: 5px 10px;">
                                 <option value="">All Categories</option>
                                 @foreach($categories as $id => $category)
                                     <option value="{{ $id }}" {{ request('category') == $id ? 'selected' : '' }}>
-                                        {{ ucfirst($category) }}
+                                        {{ ucfirst($category->dish_category_name) }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-secondary btn-sm ml-2"
-                            style="border-radius: 10px;">Filter</button>
+                        <button type="submit" class="btn btn-secondary btn-sm ml-2" style="border-radius: 10px;">Filter</button>
                     </form>
 
-                    {{-- Search by Name or Description --}}
+                    {{-- Combined Search by Name, Description, or Chef Username --}}
                     <form method="GET" action="{{ route('dishes.dashboard.index') }}" class="d-flex align-items-center">
-                        <input type="text" name="search" class="form-control form-control-sm"
-                            placeholder="Search by name or description" value="{{ request('search') }}"
-                            style="border-radius: 10px; padding: 5px 10px;">
-                        <button type="submit" class="btn btn-primary btn-sm ml-2"
-                            style="border-radius: 10px;">Search</button>
+                        <input type="text" name="search" class="form-control form-control-sm" placeholder="Search by name, description, or chef username" value="{{ request('search') }}" style="border-radius: 10px; padding: 5px 10px;">
+                        <button type="submit" class="btn btn-primary btn-sm ml-2" style="border-radius: 10px;">Search</button>
                     </form>
                 </div>
             </div>
@@ -60,6 +55,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Category</th>
+                                <th scope="col">Chef Name</th> <!-- Updated to Chef Name -->
                                 <th scope="col">Price</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -70,18 +66,15 @@
                                     <td>{{ $dish->dish_id }}</td>
                                     <td>{{ $dish->dish_title }}</td>
                                     <td>{{ $dish->category->dish_category_name ?? 'N/A' }}</td>
-                                    <td>{{ $dish->price }}</td>
+                                    <td>{{ $dish->chef->username ?? 'N/A' }}</td> 
+                                    <td>{{ number_format($dish->price, 2) }}</td>
                                     <td>
-                                        <a href="{{ route('dishes.dashboard.show', $dish) }}"
-                                            class="btn btn-info btn-sm">View</a>
-                                        <a href="{{ route('dishes.dashboard.edit', $dish) }}"
-                                            class="btn btn-warning btn-sm">Edit</a>
-                                        <button class="btn btn-danger btn-sm"
-                                            onclick="confirmDelete('{{ route('dishes.dashboard.destroy', $dish) }}')">Delete</button>
+                                        <a href="{{ route('dishes.dashboard.show', $dish) }}" class="btn btn-info btn-sm">View</a>
+                                        <a href="{{ route('dishes.dashboard.edit', $dish) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('dishes.dashboard.destroy', $dish) }}')">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>

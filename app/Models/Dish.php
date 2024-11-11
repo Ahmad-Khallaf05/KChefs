@@ -9,13 +9,13 @@ class Dish extends Model
     use HasFactory;
 
     protected $table = 'dishes';
-    protected $primaryKey = 'dish_id'; 
+    protected $primaryKey = 'dish_id';
 
     protected $fillable = [
         'dish_title',
         'dish_description',
         'price',
-        'image_id', 
+        'image_id',
         'chef_id',
         'dish_category_id',
     ];
@@ -25,7 +25,7 @@ class Dish extends Model
         return $this->belongsTo(Chef::class, 'chef_id', 'chef_id');
     }
 
-    public function category() 
+    public function category()
     {
         return $this->belongsTo(DishCategory::class, 'dish_category_id', 'dish_category_id');
     }
@@ -35,8 +35,12 @@ class Dish extends Model
         return $this->hasMany(DishImage::class, 'dish_id', 'dish_id');
     }
 
-    public function primaryImage()
-    {
-        return $this->belongsTo(DishImage::class, 'image_id', 'image_id');
-    }
+    public function firstImage()
+{
+    // Ensure 'dish_id' matches the actual foreign key column in the dish_images table
+    return $this->hasOne(DishImage::class, 'dish_id', 'dish_id');
+}
+
+
+
 }

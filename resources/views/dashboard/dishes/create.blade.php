@@ -11,10 +11,13 @@
                 </button>
             </a>
         </div>
+
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('dishes.dashboard.store') }}" method="POST">
+            <form action="{{ route('dishes.dashboard.store') }}" method="POST" enctype="multipart/form-data">
+
                     @csrf
+
                     <!-- Dish Title -->
                     <div class="form-group">
                         <label for="dish_title">Dish Title</label>
@@ -28,8 +31,7 @@
                     <!-- Dish Description -->
                     <div class="form-group">
                         <label for="dish_description">Dish Description</label>
-                        <textarea name="dish_description" id="dish_description" class="form-control"
-                            required>{{ old('dish_description') }}</textarea>
+                        <textarea name="dish_description" id="dish_description" class="form-control" required>{{ old('dish_description') }}</textarea>
                         @error('dish_description')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -77,6 +79,15 @@
                         @enderror
                     </div>
 
+                    <!-- Multiple Images Upload -->
+                    <div class="form-group">
+                        <label for="images">Upload Images</label>
+                        <input type="file" name="images[]" id="images" class="form-control" multiple required>
+                        <small class="form-text text-muted">You can upload multiple images.</small>
+                        @error('images.*')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary">Create Dish</button>

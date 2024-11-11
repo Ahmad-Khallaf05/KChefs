@@ -9,12 +9,6 @@
                     <span>+00962790325001</span>
                 </i>
             </div>
-            <div class="languages d-none d-md-flex align-items-center">
-                <ul>
-                    <li>En</li>
-                    <li><a href="#">Ar</a></li>
-                </ul>
-            </div>
         </div>
     </div><!-- End Top Bar -->
 
@@ -27,12 +21,11 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="{{ route('home') }}" class="active">Home</a></li>
-                    <li><a href="{{ route('chefs') }}">Chefs</a></li>
-                    <li><a href="{{ route('dishes.index') }}">Dishes</a></li>
                     <li><a href="{{ route('home') }}#about">About</a></li>
-                    <li><a href="{{ route('home') }}#menu">Menu</a></li>
-                    <li><a href="{{ route('home') }}#specials">Specials</a></li>
-                    <li><a href="{{ route('home') }}#contact">Contact</a></li>
+                    <li><a href="{{ route('chefs') }}#chefs">Chefs</a></li>
+                    <li><a href="{{ route('dishes.index') }}#our-dishes">Dishes</a></li>
+                    <li><a href="{{ route('contacts') }}#contact">Contact</a></li>
+                    <li><a href="{{ route('home') }}#testimonials">Testimonials</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>

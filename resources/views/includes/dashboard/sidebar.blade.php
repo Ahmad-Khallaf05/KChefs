@@ -2,7 +2,7 @@
 				<div class="scrollbar-inner sidebar-wrapper">				
 					<ul class="nav">
 						<li class="nav-item active">
-							<a href="{{ route('admin.dashboard') }}">
+							<a href="{{ route('admin.dashboard') }}#">
 								<i class="la la-dashboard"></i>
 								<p>Dashboard</p>
 							</a>

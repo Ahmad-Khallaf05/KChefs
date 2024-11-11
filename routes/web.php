@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\ChefController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\Dish_CategoryController;
 use App\Http\Controllers\dishController;
 use App\Http\Controllers\HomeChefController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomeDishController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -96,6 +98,12 @@ Route::middleware('admin')->group(function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/contacts', [ContactUsController::class, 'index'])->name('contacts');
+Route::post('/contacts', [ContactUsController::class, 'store'])->name('contacts.create');
+
+Route::post('/testimonials', [TestimonialController::class, 'store'])->name('testimonials.create');
+
 
 Route::get('/chefs', [HomeChefController::class, 'index'])->name('chefs');
 Route::get('/chefs/{chef}', [HomeChefController::class, 'show'])->name('chefs.show');

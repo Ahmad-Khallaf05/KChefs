@@ -15,38 +15,34 @@ class ChefController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index(Request $request)
+    {
+        $specialties = ChefSpecialty::all(); // Retrieve all specialties for filtering
 
-    // In ChefController.php (index method)
-public function index(Request $request)
-{
-    $specialties = chefSpecialty::all(); // Retrieve all specialties for filtering
+        $query = Chef::with('specialties'); // Eager load specialties
 
-    $query = Chef::with('specialties'); // Eager load specialties
+        // Apply filter by specialty if selected
+        if ($request->has('specialty') && $request->specialty) {
+            $query->whereHas('specialties', function ($q) use ($request) {
+                $q->where('id', $request->specialty);
+            });
+        }
 
-    // Apply filter by specialty if selected
-    if ($request->has('specialty') && $request->specialty) {
-        $query->whereHas('specialties', function($q) use ($request) {
-            $q->where('id', $request->specialty);
-        });
+        // Apply search by name or specialty
+        if ($request->has('search') && $request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('first_name', 'like', '%' . $request->search . '%')
+                    ->orWhere('last_name', 'like', '%' . $request->search . '%')
+                    ->orWhereHas('specialties', function ($q) use ($request) {
+                        $q->where('name', 'like', '%' . $request->search . '%');
+                    });
+            });
+        }
+
+        $chefs = $query->paginate(10); // Paginate results
+
+        return view('dashboard.chefs.index', compact('chefs', 'specialties'));
     }
-
-    // Apply search by name or specialty
-    if ($request->has('search') && $request->search) {
-        $query->where(function($q) use ($request) {
-            $q->where('first_name', 'like', '%'.$request->search.'%')
-                ->orWhere('last_name', 'like', '%'.$request->search.'%')
-                ->orWhereHas('specialties', function($q) use ($request) {
-                    $q->where('name', 'like', '%'.$request->search.'%');
-                });
-        });
-    }
-
-    $chefs = $query->paginate(10); // Paginate or use get() to retrieve results
-
-    return view('dashboard.chefs.index', compact('chefs', 'specialties'));
-}
-
-    
 
     /**
      * Show the form for creating a new chef.
@@ -55,13 +51,13 @@ public function index(Request $request)
      */
     public function create()
     {
-        $specialties = ChefSpecialty::all(); // Get all specialties for the dropdown
+        $specialties = ChefSpecialty::all();
         return view('dashboard.chefs.create', compact('specialties'));
     }
 
     public function store(Request $request)
     {
-        // Validate the input
+        // Validate input
         $validatedData = $request->validate([
             'username' => 'required|string|max:255|unique:chefs',
             'first_name' => 'required|string|max:255',
@@ -71,28 +67,25 @@ public function index(Request $request)
             'bio' => 'nullable|string',
             'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'specialties' => 'array',
-            'password' => 'required|string|min:8|confirmed', // Validate password
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Handle the profile picture upload if provided
+        // Handle profile picture upload
         if ($request->hasFile('profile_picture')) {
-            $validatedData['profile_picture'] = $request->file('profile_picture')->store('profile_pictures');
+            $validatedData['profile_picture'] = $request->file('profile_picture')->store('profile_pictures', 'public');
         }
 
         // Hash the password
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        // Create a new chef
+        // Create a new chef with specialties
         $chef = Chef::create($validatedData);
-
-        // Attach specialties if any were selected
         if ($request->has('specialties')) {
             $chef->specialties()->attach($request->specialties);
         }
 
         return redirect()->route('chefs.dashboard.index')->with('success', 'Chef added successfully!');
     }
-
 
     /**
      * Display the specified chef.
@@ -102,75 +95,68 @@ public function index(Request $request)
      */
     public function show(Chef $chef)
     {
-        return view('dashboard.chefs.show', compact('chef')); // Create a view to display chef details
+        return view('dashboard.chefs.show', compact('chef'));
     }
 
     /**
      * Show the form for editing the specified chef.
      *
-     * @param  Chef  $chef
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $chef = Chef::with('specialties')->findOrFail($id); // Load chef with their specialties
-        $specialties = ChefSpecialty::all(); // Retrieve all possible specialties
-        
+        $chef = Chef::with('specialties')->findOrFail($id);
+        $specialties = ChefSpecialty::all();
+
         return view('dashboard.chefs.edit', compact('chef', 'specialties'));
     }
-    
+
     /**
      * Update the specified chef in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Chef  $chef
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $chef = Chef::findOrFail($id);
-    
-        // Validate the request data, excluding password from required fields
+
+        // Validate the request data
         $validatedData = $request->validate([
-            'username' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:chefs,username,' . $chef->id,
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'chef_specialties' => 'required|array', // Ensure specialties are selected
-            'phone' => 'nullable|string',
+            'email' => 'required|email|max:255|unique:chefs,email,' . $chef->id,
+            'chef_specialties' => 'required|array',
+            'phone' => 'nullable|string|max:20',
             'bio' => 'nullable|string',
             'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'password' => 'nullable|string|confirmed|min:8', // Password is optional
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
-    
-        // Remove password from validatedData if it's empty
-        $updateData = $request->except('password'); // Exclude password from the main update
-    
-        // Update general details without the password
-        $chef->update($updateData);
-    
-        // Sync selected specialties
-        $chef->specialties()->sync($request->chef_specialties);
-    
-        // If a new profile picture is uploaded, update it
-        if ($request->hasFile('profile_picture')) {
-            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-            $chef->profile_picture = $path;
-            $chef->save();
-        }
-    
-        // Update password if a new one is provided
-        if ($request->filled('password')) {
-            $chef->password = Hash::make($request->password);
-            $chef->save();
-        }
-    
-        return redirect()->route('chefs.dashboard.index')->with('success', 'Chef updated successfully');
-    }
-    
-    
 
-    
+        // Update chef details
+        if ($request->filled('password')) {
+            $validatedData['password'] = Hash::make($request->password);
+        } else {
+            unset($validatedData['password']);
+        }
+
+        // Update profile picture if provided
+        if ($request->hasFile('profile_picture')) {
+            // Delete old profile picture if it exists
+            if ($chef->profile_picture) {
+                Storage::disk('public')->delete($chef->profile_picture);
+            }
+            $validatedData['profile_picture'] = $request->file('profile_picture')->store('profile_pictures', 'public');
+        }
+
+        $chef->fill($validatedData)->save();
+        $chef->specialties()->sync($request->chef_specialties);
+
+        return redirect()->route('chefs.dashboard.index')->with('success', 'Chef updated successfully.');
+    }
 
     /**
      * Remove the specified chef from storage.
@@ -181,6 +167,8 @@ public function index(Request $request)
     public function destroy(Chef $chef)
     {
         $chef->specialties()->detach();
+
+        // Delete profile picture if it exists
         if ($chef->profile_picture) {
             Storage::disk('public')->delete($chef->profile_picture);
         }

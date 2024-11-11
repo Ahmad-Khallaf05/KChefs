@@ -11,27 +11,25 @@ return new class extends Migration
      */
     public function up()
     {
+        // Create the dishes table
         Schema::create('dishes', function (Blueprint $table) {
             $table->id('dish_id'); 
             $table->string('dish_title');
             $table->text('dish_description')->nullable();
             $table->decimal('price', 8, 2);
             
-            $table->unsignedBigInteger('chef_id');
-            $table->foreign('chef_id')->references('chef_id')->on('chefs')->onDelete('cascade');
-            
-            $table->unsignedBigInteger('dish_category_id');
-            $table->foreign('dish_category_id')->references('dish_category_id')->on('dish_categories')->onDelete('cascade');
+            $table->foreignId('chef_id')->constrained('chefs', 'chef_id')->onDelete('cascade');  // Use foreignId helper
+            $table->foreignId('dish_category_id')->constrained('dish_categories', 'dish_category_id')->onDelete('cascade'); // Use foreignId helper
             
             $table->timestamps();
         });
 
+        // Create the dish_images table
         Schema::create('dish_images', function (Blueprint $table) {
             $table->id('image_id');
             $table->string('image_path');
     
-            $table->unsignedBigInteger('dish_id'); 
-            $table->foreign('dish_id')->references('dish_id')->on('dishes')->onDelete('cascade');
+            $table->foreignId('dish_id')->constrained('dishes', 'dish_id')->onDelete('cascade'); // Use foreignId helper
     
             $table->timestamps();
         });

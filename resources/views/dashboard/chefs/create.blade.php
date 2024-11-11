@@ -61,6 +61,9 @@
                     <div class="form-group">
                         <label for="profile_picture">Profile Picture</label>
                         <input type="file" id="profile_picture" name="profile_picture" class="form-control-file">
+                        @error('profile_picture')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
@@ -70,6 +73,9 @@
                                 <option value="{{ $specialty->id }}">{{ ucfirst($specialty->name) }}</option>
                             @endforeach
                         </select>
+                        @error('specialties')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
@@ -83,6 +89,9 @@
                     <div class="form-group">
                         <label for="password_confirmation">Confirm Password</label>
                         <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
+                        @error('password_confirmation')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <button type="submit" class="btn btn-success">Add Chef</button>
