@@ -20,7 +20,7 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="{{ route('home') }}" class="active">Home</a></li>
+                    <li><a href="{{ route('home') }}#hero" class="active">Home</a></li>
                     <li><a href="{{ route('home') }}#about">About</a></li>
                     <li><a href="{{ route('chefs') }}#chefs">Chefs</a></li>
                     <li><a href="{{ route('dishes.index') }}#our-dishes">Dishes</a></li>

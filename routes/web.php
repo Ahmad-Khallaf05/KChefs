@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChefController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Dish_CategoryController;
 use App\Http\Controllers\dishController;
 use App\Http\Controllers\HomeChefController;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ChefSpecialtyController;
+use App\Http\Controllers\Auth\SocialiteController;
 
 
 
@@ -33,10 +35,7 @@ Route::get('/', function () {
 
 Route::get('/profile', [UserController::class, 'viewProfile'])->name('profile');
 
-
-Route::get('/dash', function () {
-    return view('./dashboard/dashboard');
-})->middleware('admin')->name('admin.dashboard');
+Route::get('/dash', [DashboardController::class, 'index'])->middleware('admin')->name('admin.dashboard');
 
 
 Route::middleware('admin')->group(function () {
@@ -96,6 +95,10 @@ Route::middleware('admin')->group(function () {
 
 
 Auth::routes();
+
+Route::get('/auth/google', [SocialiteController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
+
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

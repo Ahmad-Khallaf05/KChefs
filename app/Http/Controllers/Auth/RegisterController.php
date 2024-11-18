@@ -40,11 +40,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'username' => ['required', 'string', 'max:255'],
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'in:user,chef'], // Validate role as either 'user' or 'chef'
+            'role' => ['required', 'in:user,chef'], 
         ]);
     }
 
@@ -60,8 +58,8 @@ class RegisterController extends Controller
         if ($data['role'] === 'chef') {
             return Chef::create([  // Save data to Chef table
                 'username' => $data['username'],
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
+                'first_name' => $data['first_name'] ?? null,
+                'last_name' => $data['last_name'] ?? null,
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'phone' => $data['phone'] ?? null,
@@ -73,8 +71,8 @@ class RegisterController extends Controller
         // If the role is 'user', save to the User table
         return User::create([
             'username' => $data['username'],
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
+            'first_name' => $data['first_name'] ?? null,
+            'last_name' => $data['last_name'] ?? null,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'] ?? null,

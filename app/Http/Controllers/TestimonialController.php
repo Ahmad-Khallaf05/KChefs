@@ -38,6 +38,7 @@ class TestimonialController extends Controller
     $request->validate([
         'user_name' => 'required|string|max:255',
         'user_email' => 'required|email|max:255',
+        'Testimonial_Title' => 'required|string',
         'testimonial' => 'required|string'
     ]);
 
@@ -46,11 +47,14 @@ class TestimonialController extends Controller
         Testimonial::create([
             'user_name' => $request->input('user_name'),
             'user_email' => $request->input('user_email'),
+            'Testimonial_Title' => $request->input('Testimonial_Title'),
             'testimonial' => $request->input('testimonial')
         ]);
+       
+        // Redirect back with a success message
         return redirect()->back()->with('success', 'Your testimonial has been submitted successfully!');
     } catch (\Exception $e) {
-        return redirect()->back()->withErrors(['error' => 'Error saving testimonial: ' . $e->getMessage()]);
+        return redirect()->back()->with('error', 'Something went wrong. Please try again.');
     }
 }
 
@@ -63,11 +67,11 @@ class TestimonialController extends Controller
         $contact = Testimonial::find($id);
 
         if (!$contact) {
-            return response()->json(['message' => 'Contact entry not found'], 404);
+            return response()->json(['message' => 'Testimonial entry not found'], 404);
         }
 
         $contact->delete();
-        return response()->json(['message' => 'Contact entry deleted successfully']);
+        return response()->json(['message' => 'Testimonial entry deleted successfully']);
     }
     
 

@@ -185,21 +185,41 @@
 
     </div>
 
-    <!-- Testimonials Submission Form Section -->
-    <section id="submit-testimonial" class="submit-testimonial section">
+    <section id="contact" class="contact section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Submit Your Testimonial</h2>
-        <p>We’d love to hear about your experience!</p>
+        <h2>Testimonial</h2>
+        <p>Submit Your Testimonial</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="row gy-4">
-          <div class="col-lg-8 offset-lg-2">
 
-          <form action="{{ route('testimonials.create') }}" method="post" class="php-email-form">
+          <div class="col-lg-4">
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              <i class="bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3>Phone Number</h3>
+                <p>Provide us with your contact number (optional).</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h3>Email</h3>
+                <p>Your email will remain confidential.</p>
+              </div>
+            </div><!-- End Info Item -->
+
+          </div>
+
+          <div class="col-lg-8">
+
+            <form action="{{ route('testimonials.create') }}" method="post" class="php-email-form" data-aos="fade-up"
+              data-aos-delay="200">
               @csrf
               <div class="row gy-4">
 
@@ -210,35 +230,49 @@
                 <div class="col-md-6">
                   <input type="email" class="form-control" name="user_email" placeholder="Your Email" required>
                 </div>
-                
+
                 <div class="col-md-12">
-                  <textarea class="form-control" name="testimonial" rows="6" placeholder="Write your testimonial here..."
+                  <input type="text" class="form-control" name="Testimonial_Title" placeholder="Testimonial Title"
+                    required>
+                </div>
+
+                <div class="col-md-12">
+                  <textarea class="form-control" name="testimonial" rows="6" placeholder="Your Testimonial"
                     required></textarea>
                 </div>
 
                 <div class="col-md-12 text-center">
                   <div class="loading">Loading</div>
                   <div class="error-message"></div>
-                  <div class="sent-message">Thank you! Your testimonial has been submitted.</div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
 
-                  <button type="submit">Submit Testimonial</button>
+                  <button type="submit">Send Message</button>
                 </div>
-
               </div>
             </form>
           </div>
+
+         <!-- Success or error message -->
+         @if(session('success'))
+        <div class="alert alert-success mt-4">
+          {{ session('success') }}
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="alert alert-danger mt-4">
+          {{ session('error') }}
+        </div>
+        @endif
+
+
+          <!-- End Contact Form -->
+
         </div>
 
-        @if(session('success'))
-      <div class="alert alert-success mt-4">
-        {{ session('success') }}
-      </div>
-    @endif
-
       </div>
 
-    </section><!-- /Testimonials Submission Form Section -->
-
+    </section>
 
   </section><!-- /Testimonials Section -->
 </main>

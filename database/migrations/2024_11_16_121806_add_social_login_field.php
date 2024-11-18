@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('testimonial', function (Blueprint $table) {
-            $table->id();
-            $table->string('user_name');
-            $table->string('user_email');
-            $table->text('Testimonial_Title');
-            $table->text('testimonial');
-            $table->timestamps();
+        Schema::table('users', function ($table) {
+            $table->string('social_id')->nullable();
+            $table->string('social_type')->nullable();
         });
     }
 
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('testimonial');
+        Schema::dropIfExists('users');
     }
 };
