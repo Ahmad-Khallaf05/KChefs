@@ -18,6 +18,18 @@
             </div>
             <div class="card-body">
                 <div class="row mb-3">
+                    <div class="col-md-4"><strong>Profile Picture:</strong></div>
+                    <div class="col-md-8">
+                        @if($user->profile_picture)
+                            <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture"
+                                class="img-thumbnail" width="150">
+                        @else
+                            <p>No Profile Picture</p>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="row mb-3">
                     <div class="col-md-4"><strong>Username:</strong></div>
                     <div class="col-md-8">{{ $user->username }}</div>
                 </div>
@@ -50,18 +62,6 @@
                 <div class="row mb-3">
                     <div class="col-md-4"><strong>Bio:</strong></div>
                     <div class="col-md-8">{{ $user->bio ?? 'N/A' }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4"><strong>Profile Picture:</strong></div>
-                    <div class="col-md-8">
-                        @if($user->profile_picture)
-                            <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture"
-                                class="img-thumbnail" width="150">
-                        @else
-                            <p>No Profile Picture</p>
-                        @endif
-                    </div>
                 </div>
 
                 <!-- Edit Button -->

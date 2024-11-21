@@ -160,7 +160,7 @@
                                  border-radius: 10px;">
                         @csrf
 
-                        <h3 class="text-center" style="color: white;">Register Here</h3>
+                        <h3 class="text-center" style="color: red;">Register Here</h3>
 
                         <div class="row mb-4">
                             <div class="col-md-6">

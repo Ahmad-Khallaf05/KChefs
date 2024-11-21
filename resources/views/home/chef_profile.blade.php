@@ -6,7 +6,7 @@
         background-color: #191815;
         border: 2px solid #000; 
         border-radius: 10px;
-        padding: 15px; /* Increased padding */
+        padding: 15px; 
         position: relative; 
         overflow: hidden; 
         transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; 
@@ -22,7 +22,7 @@
 
     .card-item:hover {
         transform: scale(1.05); 
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); 
         background-color: #cda45e; 
     }
 
@@ -31,26 +31,25 @@
         color: #000;
     }
 
-    /* New styles for image */
+    
     .card-image {
         width: 100%; 
-        height: 300px; /* Increased height */
-        object-fit: cover; /* Maintain aspect ratio */
-        border-radius: 10px; /* Match card border radius */
+        height: 300px; 
+        object-fit: cover;
+        border-radius: 10px; 
     }
 
     .section-title h2 {
-        margin-bottom: 10px; /* Space below titles */
+        margin-bottom: 10px; 
     }
 
-    /* Adjusting text styles */
     .card-item h2 {
-        font-size: 1.5rem; /* Increased font size */
-        margin: 10px 0; /* Space around titles */
+        font-size: 1.5rem;
+        margin: 10px 0; 
     }
 
     .card-item p {
-        font-size: 1.1rem; /* Increased font size */
+        font-size: 1.1rem; 
     }
 </style>
 
@@ -84,23 +83,26 @@
         <h2>{{ $chef->username }}'s Dishes</h2>
         <p>Discover the delicious dishes prepared by {{ $chef->username }}.</p>
     </div>
+  
 
-    <!-- Dishes Cards -->
-    <div class="container">
-        <div class="row gy-4">
-            @foreach($chef->dishes as $dish)
-                <div class="col-lg-4">
-                    <div class="card-item">
-                        <a href="{{ route('dishes.show', $dish->dish_id) }}" class="stretched-link">
-                            <img src="{{ asset($dish->image_path ?? './assets/home/img/dishes/default-dish.jpg') }}" alt="{{ $dish->dish_title }}" class="card-image">
-                            <h2>{{ $dish->dish_title }}</h2>
-                            <p><strong>Price:</strong> ${{ number_format($dish->price, 2) }}</p>
-                        </a>
-                    </div>
+     <!-- Dishes Cards -->
+<div class="container">
+    <div class="row gy-4">
+        @foreach($chef->dishes as $dish)
+            <div class="col-lg-4">
+                <div class="card-item">
+                    <a href="{{ route('dishes.show', $dish->dish_id) }}" class="stretched-link">
+                        <img src="{{ asset($dish->images->first()->image_path ?? 'default.jpg') }}" 
+                             alt="{{ $dish->dish_title }}" 
+                             class="img-fluid card-image">
+                        <h2>{{ $dish->dish_title }}</h2>
+                        <p><strong>Price:</strong> ${{ number_format($dish->price, 2) }}</p>
+                    </a>
                 </div>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
     </div>
+</div>
     <br>
 </section>
 @endsection

@@ -16,7 +16,7 @@
                 <h4>Edit User Details</h4>
             </div>
             <div class="card-body">
-                <form action="{{ route('users.dashboard.update', $user) }}" method="POST">
+                <form action="{{ route('users.dashboard.update', $user) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -48,6 +48,25 @@
                             value="{{ old('email', $user->email) }}" required>
                     </div>
 
+                      <!-- Phone (optional) -->
+                      <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" id="phone" class="form-control"
+                            value="{{ old('phone', $user->phone) }}">
+                        @error('phone')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Bio (optional) -->
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <textarea name="bio" id="bio" class="form-control" rows="3">{{ old('bio', $user->bio) }}</textarea>
+                        @error('bio')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <!-- Password (optional) -->
                     <div class="form-group">
                         <label for="password">Password (Leave empty to keep current password)</label>
@@ -61,6 +80,17 @@
                             <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
                             <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
                         </select>
+                    </div>
+
+                    <!-- Profile Picture -->
+                    <div class="form-group">
+                        <label for="profile_picture">Profile Picture</label>
+                        @if($user->profile_picture)
+                            <div class="mb-3">
+                                <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Current Profile Picture" class="img-thumbnail" width="150">
+                            </div>
+                        @endif
+                        <input type="file" name="profile_picture" id="profile_picture" class="form-control">
                     </div>
 
                     <!-- Submit Button -->

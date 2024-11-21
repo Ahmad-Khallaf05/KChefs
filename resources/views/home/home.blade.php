@@ -28,38 +28,32 @@
   </section><!-- /Hero Section -->
 
   <!-- About Section -->
-  <section id="about" class="about section">
+<section id="about" class="about section">
 
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
+<div class="container" data-aos="fade-up" data-aos-delay="100">
 
-      <div class="row gy-4">
-        <div class="col-lg-6 order-1 order-lg-2">
-          <img src="{{ asset('./assets/home/img/about.jpg') }}" class="img-fluid about-img" alt="">
-        </div>
-        <div class="col-lg-6 order-2 order-lg-1 content">
-          <h3>Voluptatem dignissimos provident</h3>
-          <p class="fst-italic">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore
-            magna aliqua.
-          </p>
-          <ul>
-            <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
-            </li>
-            <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span>
-            </li>
-            <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla
-                pariatur.</span></li>
-          </ul>
-          <p>
-            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
-          </p>
-        </div>
-      </div>
-
+  <div class="row gy-4">
+    <div class="col-lg-6 order-1 order-lg-2">
+      <img src="{{ asset('./assets/home/img/about.jpg') }}" class="img-fluid about-img" alt="KChefs">
     </div>
+    <div class="col-lg-6 order-2 order-lg-1 content">
+      <h3>Welcome to KChefs</h3>
+      <p class="fst-italic">
+        At KChefs, we bring together culinary experts to share their passion for food, recipes, and the art of cooking. Whether you're a seasoned chef or a home cook, we provide a platform for learning and exploring new dishes.
+      </p>
+      <ul>
+        <li><i class="bi bi-check2-all"></i> <span>Discover a wide variety of recipes and cooking tips from experienced chefs.</span></li>
+        <li><i class="bi bi-check2-all"></i> <span>Learn new skills and techniques to elevate your culinary creations.</span></li>
+        <li><i class="bi bi-check2-all"></i> <span>Join a community of food lovers and share your own cooking experiences.</span></li>
+      </ul>
+      <p>
+        Whether you’re looking to perfect your favorite dish or try something completely new, KChefs is here to inspire your culinary journey. From easy weeknight meals to intricate gourmet creations, we have something for every cook.
+      </p>
+    </div>
+  </div>
+
+</div>
+</section>
 
   </section><!-- /About Section -->
 
@@ -112,8 +106,6 @@
                   Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
                 <i class="bi bi-quote quote-icon-right"></i>
               </p>
-              <img src="{{ asset('./assets/home/img/testimonials/testimonials-1.jpg') }}" class="testimonial-img"
-                alt="">
               <h3>Saul Goodman</h3>
               <h4>Ceo &amp; Founder</h4>
             </div>
@@ -127,8 +119,6 @@
                   velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
                 <i class="bi bi-quote quote-icon-right"></i>
               </p>
-              <img src="{{ asset('./assets/home/img/testimonials/testimonials-2.jpg') }}" class="testimonial-img"
-                alt="">
               <h3>Sara Wilsson</h3>
               <h4>Designer</h4>
             </div>
@@ -142,8 +132,6 @@
                   tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
                 <i class="bi bi-quote quote-icon-right"></i>
               </p>
-              <img src="{{ asset('./assets/home/img/testimonials/testimonials-3.jpg') }}" class="testimonial-img"
-                alt="">
               <h3>Jena Karlis</h3>
               <h4>Store Owner</h4>
             </div>
@@ -157,8 +145,6 @@
                   duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
                 <i class="bi bi-quote quote-icon-right"></i>
               </p>
-              <img src="{{ asset('./assets/home/img/testimonials/testimonials-4.jpg') }}" class="testimonial-img"
-                alt="">
               <h3>Matt Brandon</h3>
               <h4>Freelancer</h4>
             </div>
@@ -172,8 +158,6 @@
                   culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
                 <i class="bi bi-quote quote-icon-right"></i>
               </p>
-              <img src="{{ asset('./assets/home/img/testimonials/testimonials-5.jpg') }}" class="testimonial-img"
-                alt="">
               <h3>John Larson</h3>
               <h4>Entrepreneur</h4>
             </div>

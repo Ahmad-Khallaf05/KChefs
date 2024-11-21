@@ -67,17 +67,6 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="ratings">Ratings:</label>
-                            <p>
-                                <span class="text-warning">
-                                    @for($i = 0; $i < 5; $i++)
-                                        <i class="zmdi zmdi-star{{ $dish->rating > $i ? '' : '-outline' }}"></i>
-                                    @endfor
-                                </span>
-                            </p>
-                        </div>
-
-                        <div class="form-group mb-3">
                             <button class="btn btn-warning btn-lg btn-block" onclick="confirmDelete('{{ route('dishes.dashboard.destroy', $dish) }}')">Delete Dish</button>
                             <a href="{{ route('dishes.dashboard.edit', $dish) }}" class="btn btn-info btn-lg btn-block">Edit Dish</a>
                         </div>

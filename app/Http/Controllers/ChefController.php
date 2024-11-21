@@ -124,17 +124,18 @@ class ChefController extends Controller
         $chef = Chef::findOrFail($id);
 
         // Validate the request data
-        $validatedData = $request->validate([
-            'username' => 'required|string|max:255|unique:chefs,username,' . $chef->id,
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:chefs,email,' . $chef->id,
-            'chef_specialties' => 'required|array',
-            'phone' => 'nullable|string|max:20',
-            'bio' => 'nullable|string',
-            'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'password' => 'nullable|string|min:8|confirmed',
-        ]);
+     $validatedData = $request->validate([
+    'username' => 'required|string|max:255|unique:chefs,username,' . $chef->chef_id . ',chef_id',
+    'first_name' => 'required|string|max:255',
+    'last_name' => 'required|string|max:255',
+    'email' => 'required|email|max:255|unique:chefs,email,' . $chef->chef_id . ',chef_id',
+    'chef_specialties' => 'required|array',
+    'phone' => 'nullable|string|max:20',
+    'bio' => 'nullable|string',
+    'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    'password' => 'nullable|string|min:8|confirmed',
+]);
+
 
         // Update chef details
         if ($request->filled('password')) {

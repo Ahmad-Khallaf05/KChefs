@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChefController;
+use App\Http\Controllers\ChefDishController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Dish_CategoryController;
@@ -89,6 +90,20 @@ Route::middleware('admin')->group(function () {
         'destroy' => 'chef_specialties.dashboard.destroy',
         'show' => 'chef_specialties.dashboard.show',
     ]);
+    Route::resource('/dash/contacts', ContactUsController::class)->middleware('admin')->names([
+        'index' => 'contacts.dashboard.index',
+        'destroy' => 'contacts.dashboard.destroy',
+        'show' => 'contacts.dashboard.show',
+    ]);
+    Route::resource('/dash/ChefDishes', ChefDishController::class)->middleware('admin')->names([
+        'index' => 'ChefDishes.dashboard.index',
+        'create' => 'ChefDishes.dashboard.create',
+        'store' => 'ChefDishes.dashboard.store',
+        'edit' => 'ChefDishes.dashboard.edit',
+        'update' => 'ChefDishes.dashboard.update',
+        'destroy' => 'ChefDishes.dashboard.destroy',
+        'show' => 'ChefDishes.dashboard.show',
+    ]);
     
 
 });
@@ -102,7 +117,7 @@ Route::get('/auth/google/callback', [SocialiteController::class, 'handleGoogleCa
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/contacts', [ContactUsController::class, 'index'])->name('contacts');
+Route::get('/contacts', [ContactUsController::class, 'userindex'])->name('contacts');
 Route::post('/contacts', [ContactUsController::class, 'store'])->name('contacts.create');
 
 Route::post('/testimonials', [TestimonialController::class, 'store'])->name('testimonials.create');

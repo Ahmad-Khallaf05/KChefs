@@ -16,7 +16,6 @@
             <div class="card-body">
                 <form action="{{ route('categories.dashboard.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @methode('POST')
 
                     <!-- Category Name -->
                     <div class="form-group">

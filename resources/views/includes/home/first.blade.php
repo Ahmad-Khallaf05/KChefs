@@ -9,7 +9,9 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{ asset('./assets/home/img/favicon.png') }}" rel="icon">
+  <link rel="icon" href="{{ asset('./assets/design.png') }}" type="image/png">
+
+
   <link href="{{ asset('./assets/home/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
   <!-- Fonts -->

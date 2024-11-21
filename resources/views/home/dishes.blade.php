@@ -3,43 +3,54 @@
 @section('content')
 <style>
     .card-item {
-        background-color: #fff;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        text-align: center;
-        margin: 15px 0;
-        position: relative;
-        /* Required for ::after positioning */
-    }
-
-    .card-item::after {
-        content: "";
-        /* Ensures it displays */
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.1);
-        /* Semi-transparent overlay */
-        transition: opacity 0.2s ease;
-        opacity: 0;
-        /* Hidden by default */
-        z-index: 1;
-        border-radius: 8px;
-    }
-
-    .card-item:hover::after {
-        opacity: 1;
-        /* Makes overlay visible on hover */
+        background-color: #191815;
+        border: 2px solid #000; 
+        border-radius: 10px;
+        padding: 15px; /* Increased padding */
+        position: relative; 
+        overflow: hidden; 
+        transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; 
     }
 
     .card-item a {
-        position: relative;
-        z-index: 2;
-        /* Ensures content is above ::after overlay */
+        text-decoration: none; 
+        color: #fff; 
+        display: block; 
+        height: 100%; 
+        transition: color 0.2s; 
+    }
+
+    .card-item:hover {
+        transform: scale(1.05); 
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+        background-color: #cda45e; 
+    }
+
+    .card-item:hover h2,
+    .card-item:hover p {
+        color: #000;
+    }
+
+    /* New styles for image */
+    .card-image {
+        width: 100%; 
+        height: 300px; /* Increased height */
+        object-fit: cover; /* Maintain aspect ratio */
+        border-radius: 10px; /* Match card border radius */
+    }
+
+    .section-title h2 {
+        margin-bottom: 10px; /* Space below titles */
+    }
+
+    /* Adjusting text styles */
+    .card-item h2 {
+        font-size: 1.5rem; /* Increased font size */
+        margin: 10px 0; /* Space around titles */
+    }
+
+    .card-item p {
+        font-size: 1.1rem; /* Increased font size */
     }
 </style>
 <br>
@@ -79,43 +90,31 @@
                 </select>
             </div>
             <div class="col-md-2">
-                <button type="submit" class="btn btn-black filter-button">Filter</button>
+                <button type="submit" class="btn btn-warning filter-button" >Filter</button>
             </div>
         </form>
     </div>
 
-    <!-- Dishes List with Styled Cards -->
-    <div class="container">
-        <div class="row gy-4">
-            @forelse($dishes as $dish)
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-item">
-                        <a href="{{ route('dishes.show', $dish->dish_id) }}" class="stretched-link">
-                        <div class="col-md-6">
-                        <div class="image-container">
-                            @if($dish->images->isNotEmpty())
-                                <img src="{{ asset($dish->images->first()->image_path) }}" alt="{{ $dish->dish_title }}" class="img-fluid" style="max-height: 400px; object-fit: cover;">
-                            @else
-                                <p>No image available</p>
-                            @endif
-                        </div>
-                    </div>
+    <br>
 
-
-                            <div class="card-content">
-                                <h4 class="dish-title">{{ $dish->dish_title }}</h4>
-                                <p class="dish-description">{{ Str::limit($dish->dish_description, 100) }}</p>
-                            </div>
-                        </a>
-                    </div>
+  <!-- Dishes Cards -->
+<div class="container">
+    <div class="row gy-4">
+        @foreach($dishes as $dish)
+            <div class="col-lg-4">
+                <div class="card-item">
+                    <a href="{{ route('dishes.show', $dish->dish_id) }}" class="stretched-link">
+                        <img src="{{ asset($dish->images->first()->image_path ?? 'default.jpg') }}" 
+                             alt="{{ $dish->dish_title }}" 
+                             class="img-fluid card-image">
+                        <h2>{{ $dish->dish_title }}</h2>
+                        <p><strong>Price:</strong> ${{ number_format($dish->price, 2) }}</p>
+                    </a>
                 </div>
-            @empty
-                <div class="col-12">
-                    <p class="text-center">No dishes found.</p>
-                </div>
-            @endforelse
-        </div>
+            </div>
+        @endforeach
     </div>
+</div>
 
     <!-- Pagination -->
     <div class="d-flex justify-content-center mt-4">

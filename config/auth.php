@@ -35,16 +35,17 @@ return [
     |
     */
 
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-        'chef' => [  // Added guard for chefs
-            'driver' => 'session',
-            'provider' => 'chefs',
-        ],
+   'guards' => [
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',
     ],
+    'chef' => [
+        'driver' => 'session',
+        'provider' => 'chefs',
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -64,15 +65,16 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-        'chefs' => [  // Added provider for chefs
-            'driver' => 'eloquent',
-            'model' => App\Models\Chef::class,
-        ],
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
     ],
+    'chefs' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Chef::class,
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
